@@ -1,1935 +1,2316 @@
 <!doctype html>
 <html lang="nl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#121212">
-<meta name="description" content="Van Silenus naar Adonis - 8 weken calisthenics trainingsapp">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon.svg">
-<title>Van Silenus naar Adonis</title>
-
-<style>
-:root{
-  --bg:#0c0c0d;
-  --panel:#171719;
-  --panel2:#202023;
-  --text:#f7f2e8;
-  --muted:#aaa59b;
-  --gold:#d8aa5b;
-  --gold2:#f0c778;
-  --green:#63c174;
-  --red:#ef6b6b;
-  --line:#35353a;
-  --shadow:0 10px 35px rgba(0,0,0,.34);
-}
-
-*{box-sizing:border-box}
-
-html{
-  background:var(--bg);
-  color-scheme:dark;
-}
-
-body{
-  margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 50% -20%,#392b14 0,#15130f 25%,#101011 50%,#09090a 100%);
-  color:var(--text);
-  font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-}
-
-button{font:inherit}
-
-.app{
-  width:min(760px,100%);
-  margin:0 auto;
-  padding:
-    env(safe-area-inset-top)
-    14px
-    calc(150px + env(safe-area-inset-bottom));
-}
-
-.hero{
-  position:relative;
-  overflow:hidden;
-  margin-top:12px;
-  padding:28px 18px 24px;
-  text-align:center;
-  border:1px solid #342b1d;
-  border-radius:28px;
-  background:
-    linear-gradient(rgba(15,15,16,.55),rgba(15,15,16,.92)),
-    radial-gradient(circle at 50% 15%,#5a421c 0,#2c2417 25%,#171719 62%);
-  box-shadow:var(--shadow);
-}
-
-.hero:before{
-  content:"A";
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-52%);
-  font-family:Georgia,serif;
-  font-size:220px;
-  font-weight:900;
-  line-height:1;
-  color:rgba(216,170,91,.055);
-}
-
-.hero>*{
-  position:relative;
-  z-index:1;
-}
-
-.hero-logo{
-  width:74px;
-  height:74px;
-  margin:0 auto 13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  border:2px solid var(--gold);
-  background:radial-gradient(circle at 50% 35%,#3c301e,#181713 70%);
-  box-shadow:0 0 0 7px rgba(216,170,91,.08),0 12px 34px rgba(0,0,0,.4);
-  color:var(--gold2);
-  font-family:Georgia,serif;
-  font-size:38px;
-  font-weight:900;
-}
-
-.eyebrow{
-  color:var(--gold2);
-  text-transform:uppercase;
-  letter-spacing:.16em;
-  font-size:11px;
-  font-weight:850;
-}
-
-.hero h1{
-  margin:6px 0 3px;
-  font-family:Georgia,serif;
-  font-size:clamp(30px,8vw,46px);
-  line-height:1;
-}
-
-.hero h1 span{color:var(--gold2)}
-
-.subtitle{
-  color:var(--muted);
-  margin:8px auto 0;
-}
-
-.hero-quote{
-  margin:16px auto 0;
-  color:#e4d6ba;
-  font-size:14px;
-  font-style:italic;
-}
-
-.screen{display:none}
-.screen.active{display:block}
-
-.nav{
-  position:fixed;
-  z-index:50;
-  left:50%;
-  bottom:10px;
-  transform:translateX(-50%);
-  width:min(730px,calc(100% - 20px));
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;
-  background:rgba(22,22,24,.95);
-  backdrop-filter:blur(18px);
-  border:1px solid #2f2f34;
-  border-radius:20px;
-  padding:7px;
-  box-shadow:var(--shadow);
-}
-
-.nav button{
-  border:0;
-  background:transparent;
-  color:#bcb7ad;
-  border-radius:14px;
-  padding:10px 6px;
-  font-weight:800;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3px;
-}
-
-.nav button.active{
-  background:#3a2d18;
-  color:#ffe2a8;
-}
-
-.nav-icon{font-size:20px}
-.nav-text{font-size:12px}
-
-.card{
-  background:linear-gradient(180deg,#1b1b1e,#151517);
-  border:1px solid #2c2c31;
-  border-radius:22px;
-  padding:18px;
-  margin:12px 0;
-  box-shadow:var(--shadow);
-}
-
-.card.gold{
-  background:
-    radial-gradient(circle at 100% 0,rgba(216,170,91,.16),transparent 42%),
-    linear-gradient(180deg,#1d1b17,#151516);
-  border-color:#423722;
-}
-
-.topline{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:#2b2417;
-  color:#f5cd81;
-  border:1px solid #5d4825;
-  border-radius:999px;
-  padding:6px 10px;
-  font-weight:850;
-  font-size:12px;
-}
-
-.badge.light{
-  background:#17241a;
-  color:#9ee5aa;
-  border-color:#285c32;
-}
-
-.badge.extra{
-  background:#1b2030;
-  color:#b9c9ff;
-  border-color:#3b4b80;
-}
-
-.badge.rest{
-  background:#202025;
-  color:#c7c7ce;
-  border-color:#44444c;
-}
-
-h1,h2,h3,p{margin-top:0}
-h2,h3{margin-bottom:0}
-
-.muted{color:var(--muted)}
-.small{font-size:13px}
-
-.section-title{
-  margin:23px 4px 9px;
-  font-size:18px;
-}
-
-.section-title span{color:var(--gold2)}
-
-.week-strip{
-  display:flex;
-  gap:8px;
-  overflow:auto;
-  padding:4px 2px 8px;
-  scrollbar-width:none;
-}
-
-.week-strip::-webkit-scrollbar{display:none}
-
-.week-btn{
-  flex:0 0 auto;
-  border:1px solid #39393e;
-  background:#17171a;
-  color:#ddd6c9;
-  border-radius:13px;
-  padding:9px 12px;
-  font-weight:800;
-}
-
-.week-btn.active{
-  background:var(--gold);
-  border-color:var(--gold);
-  color:#17120a;
-}
-
-.day-strip{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:7px;
-  margin:8px 0 14px;
-}
-
-.day-btn{
-  border:1px solid #37373c;
-  background:#17171a;
-  color:#cfc8bb;
-  border-radius:15px;
-  padding:10px 5px;
-  font-size:13px;
-  font-weight:850;
-}
-
-.day-btn.active{
-  background:#302617;
-  border-color:#80612d;
-  color:#ffd994;
-}
-
-.progress-shell{
-  width:100%;
-  height:12px;
-  overflow:hidden;
-  background:#29292e;
-  border:1px solid #37373d;
-  border-radius:999px;
-}
-
-.progress-bar{
-  height:100%;
-  width:0;
-  border-radius:999px;
-  background:linear-gradient(90deg,var(--gold),var(--gold2));
-  transition:width .3s ease;
-}
-
-.schedule-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-}
-
-.schedule-item{
-  min-height:112px;
-  padding:14px;
-  border-radius:17px;
-  border:1px solid #303035;
-  background:#17171a;
-}
-
-.schedule-item strong{
-  display:block;
-  margin-bottom:4px;
-  color:#f5e0b9;
-}
-
-.schedule-item .icon{
-  font-size:22px;
-  margin-bottom:7px;
-}
-
-.today-action{
-  width:100%;
-  margin-top:14px;
-  border:0;
-  border-radius:16px;
-  padding:14px 16px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#17120a;
-  font-weight:900;
-}
-
-.workout-header{
-  padding:17px;
-  border-radius:21px;
-  border:1px solid #423722;
-  background:
-    radial-gradient(circle at 100% 0,rgba(216,170,91,.13),transparent 50%),
-    #171719;
-  margin-bottom:11px;
-}
-
-.workout-header h2{
-  margin:7px 0 4px;
-  font-size:25px;
-}
-
-.workout-meta{
-  margin-top:12px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
-
-.warning{
-  border:1px solid #574427;
-  background:#241f17;
-  color:#e9cf9e;
-  padding:13px;
-  border-radius:15px;
-  font-size:13px;
-  margin:12px 0;
-}
-
-.exercise{
-  overflow:hidden;
-  padding:16px;
-  margin:10px 0;
-  border-radius:20px;
-  border:1px solid #2f2f34;
-  background:linear-gradient(180deg,#1c1c1f,#161618);
-}
-
-.exercise.complete{
-  border-color:#345d3a;
-  background:
-    radial-gradient(circle at 100% 0,rgba(99,193,116,.12),transparent 40%),
-    linear-gradient(180deg,#1b1d1b,#151716);
-}
-
-.exercise-main{
-  display:grid;
-  grid-template-columns:54px 1fr;
-  gap:13px;
-  align-items:start;
-}
-
-.exercise-icon{
-  width:54px;
-  height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:16px;
-  background:#28231a;
-  border:1px solid #514326;
-  font-size:27px;
-}
-
-.exercise h3{
-  font-size:18px;
-  line-height:1.2;
-}
-
-.exercise-target{
-  color:#f3ca79;
-  font-size:13px;
-  font-weight:800;
-  margin-top:4px;
-}
-
-.exercise-cue{
-  color:var(--muted);
-  font-size:13px;
-  margin:9px 0 0;
-}
-
-
-/* BEWEGEND OEFENVOORBEELD */
-
-.demo{
-  position:relative;
-  height:150px;
-  margin-top:15px;
-  overflow:hidden;
-  border:1px solid #3c3426;
-  border-radius:17px;
-  background:
-    radial-gradient(circle at 50% 30%,rgba(216,170,91,.16),transparent 40%),
-    linear-gradient(180deg,#171510,#0d0d0e);
-}
-
-.demo-title{
-  position:absolute;
-  z-index:5;
-  top:9px;
-  left:10px;
-  padding:5px 8px;
-  border-radius:999px;
-  background:rgba(12,12,13,.72);
-  border:1px solid #443821;
-  color:#e9c57e;
-  font-size:10px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.demo-floor{
-  position:absolute;
-  left:8%;
-  right:8%;
-  bottom:22px;
-  height:2px;
-  background:#5a4a2e;
-}
-
-.figure{
-  position:absolute;
-  left:50%;
-  bottom:25px;
-  width:130px;
-  height:90px;
-  transform:translateX(-50%);
-}
-
-.figure .head{
-  position:absolute;
-  width:20px;
-  height:20px;
-  border:4px solid #e4bb70;
-  border-radius:50%;
-}
-
-.figure .body,
-.figure .arm1,
-.figure .arm2,
-.figure .leg1,
-.figure .leg2{
-  position:absolute;
-  height:5px;
-  background:#e4bb70;
-  border-radius:999px;
-  transform-origin:left center;
-}
-
-.demo.push .figure{
-  animation:pushMove 1.6s ease-in-out infinite;
-}
-
-.demo.push .head{
-  left:10px;
-  top:33px;
-}
-
-.demo.push .body{
-  width:70px;
-  left:27px;
-  top:43px;
-  transform:rotate(6deg);
-}
-
-.demo.push .arm1{
-  width:36px;
-  left:36px;
-  top:46px;
-  transform:rotate(72deg);
-}
-
-.demo.push .arm2{
-  width:36px;
-  left:55px;
-  top:47px;
-  transform:rotate(70deg);
-}
-
-.demo.push .leg1{
-  width:53px;
-  left:91px;
-  top:49px;
-  transform:rotate(8deg);
-}
-
-@keyframes pushMove{
-  0%,100%{transform:translateX(-50%) translateY(-13px)}
-  50%{transform:translateX(-50%) translateY(7px)}
-}
-
-
-.demo.squat .figure{
-  width:90px;
-  animation:squatMove 1.7s ease-in-out infinite;
-}
-
-.demo.squat .head{
-  left:34px;
-  top:3px;
-}
-
-.demo.squat .body{
-  width:48px;
-  left:42px;
-  top:25px;
-  transform:rotate(90deg);
-}
-
-.demo.squat .arm1{
-  width:42px;
-  left:41px;
-  top:38px;
-  transform:rotate(0deg);
-}
-
-.demo.squat .leg1{
-  width:45px;
-  left:43px;
-  top:70px;
-  transform:rotate(145deg);
-}
-
-.demo.squat .leg2{
-  width:45px;
-  left:43px;
-  top:70px;
-  transform:rotate(35deg);
-}
-
-@keyframes squatMove{
-  0%,100%{
-    transform:translateX(-50%) translateY(-16px);
-  }
-  50%{
-    transform:translateX(-50%) translateY(12px) scaleY(.85);
-  }
-}
-
-
-.demo.plank .figure{
-  animation:plankMove 1.8s ease-in-out infinite;
-}
-
-.demo.plank .head{
-  left:7px;
-  top:25px;
-}
-
-.demo.plank .body{
-  width:72px;
-  left:26px;
-  top:38px;
-  transform:rotate(8deg);
-}
-
-.demo.plank .arm1{
-  width:40px;
-  left:38px;
-  top:40px;
-  transform:rotate(75deg);
-}
-
-.demo.plank .leg1{
-  width:52px;
-  left:92px;
-  top:48px;
-  transform:rotate(8deg);
-}
-
-@keyframes plankMove{
-  0%,100%{transform:translateX(-50%) rotate(-1deg)}
-  50%{transform:translateX(-50%) rotate(2deg)}
-}
-
-
-.demo.row .figure{
-  animation:rowMove 1.6s ease-in-out infinite;
-}
-
-.demo.row:after{
-  content:"";
-  position:absolute;
-  width:145px;
-  height:5px;
-  background:#b78f4d;
-  left:50%;
-  top:45px;
-  transform:translateX(-50%);
-  border-radius:10px;
-}
-
-.demo.row .head{
-  left:17px;
-  top:31px;
-}
-
-.demo.row .body{
-  width:70px;
-  left:36px;
-  top:44px;
-  transform:rotate(13deg);
-}
-
-.demo.row .arm1{
-  width:38px;
-  left:49px;
-  top:44px;
-  transform:rotate(-60deg);
-}
-
-.demo.row .leg1{
-  width:50px;
-  left:99px;
-  top:59px;
-  transform:rotate(10deg);
-}
-
-@keyframes rowMove{
-  0%,100%{transform:translateX(-50%) translateY(20px)}
-  50%{transform:translateX(-50%) translateY(3px)}
-}
-
-
-.demo.dip .figure{
-  width:100px;
-  animation:dipMove 1.6s ease-in-out infinite;
-}
-
-.demo.dip:after{
-  content:"";
-  position:absolute;
-  width:48px;
-  height:40px;
-  border:4px solid #876d40;
-  border-top-width:7px;
-  left:58%;
-  bottom:24px;
-  border-radius:4px;
-}
-
-.demo.dip .head{
-  left:24px;
-  top:4px;
-}
-
-.demo.dip .body{
-  width:50px;
-  left:33px;
-  top:27px;
-  transform:rotate(85deg);
-}
-
-.demo.dip .arm1{
-  width:40px;
-  left:35px;
-  top:35px;
-  transform:rotate(20deg);
-}
-
-.demo.dip .leg1{
-  width:54px;
-  left:36px;
-  top:72px;
-  transform:rotate(10deg);
-}
-
-@keyframes dipMove{
-  0%,100%{transform:translateX(-50%) translateY(-12px)}
-  50%{transform:translateX(-50%) translateY(10px)}
-}
-
-
-.demo.core .figure{
-  animation:coreMove 1.8s ease-in-out infinite;
-}
-
-.demo.core .head{
-  left:7px;
-  top:38px;
-}
-
-.demo.core .body{
-  width:60px;
-  left:27px;
-  top:48px;
-  transform:rotate(6deg);
-}
-
-.demo.core .arm1{
-  width:46px;
-  left:43px;
-  top:50px;
-  transform:rotate(-18deg);
-}
-
-.demo.core .leg1{
-  width:50px;
-  left:83px;
-  top:54px;
-  transform:rotate(-22deg);
-}
-
-.demo.core .leg2{
-  width:50px;
-  left:83px;
-  top:55px;
-  transform:rotate(25deg);
-}
-
-@keyframes coreMove{
-  0%,100%{transform:translateX(-50%) rotate(-4deg)}
-  50%{transform:translateX(-50%) rotate(5deg)}
-}
-
-
-.demo.bridge .figure{
-  animation:bridgeMove 1.6s ease-in-out infinite;
-}
-
-.demo.bridge .head{
-  left:6px;
-  top:55px;
-}
-
-.demo.bridge .body{
-  width:65px;
-  left:25px;
-  top:63px;
-  transform:rotate(-18deg);
-}
-
-.demo.bridge .leg1{
-  width:45px;
-  left:84px;
-  top:43px;
-  transform:rotate(50deg);
-}
-
-@keyframes bridgeMove{
-  0%,100%{transform:translateX(-50%) translateY(8px)}
-  50%{transform:translateX(-50%) translateY(-10px)}
-}
-
-
-.demo.lunge .figure{
-  width:100px;
-  animation:lungeMove 1.7s ease-in-out infinite;
-}
-
-.demo.lunge .head{
-  left:39px;
-  top:2px;
-}
-
-.demo.lunge .body{
-  width:47px;
-  left:48px;
-  top:25px;
-  transform:rotate(90deg);
-}
-
-.demo.lunge .arm1{
-  width:35px;
-  left:48px;
-  top:38px;
-  transform:rotate(10deg);
-}
-
-.demo.lunge .leg1{
-  width:48px;
-  left:49px;
-  top:69px;
-  transform:rotate(150deg);
-}
-
-.demo.lunge .leg2{
-  width:50px;
-  left:49px;
-  top:69px;
-  transform:rotate(28deg);
-}
-
-@keyframes lungeMove{
-  0%,100%{transform:translateX(-50%) translateY(-12px)}
-  50%{transform:translateX(-50%) translateY(9px)}
-}
-
-.video-link{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  margin-top:11px;
-  color:#e7c47e;
-  text-decoration:none;
-  font-size:13px;
-  font-weight:800;
-}
-
-.sets{
-  display:grid;
-  gap:7px;
-  margin-top:14px;
-}
-
-.set-btn{
-  width:100%;
-  border:1px solid #39393f;
-  border-radius:14px;
-  background:#202023;
-  color:#eee8dc;
-  padding:13px 12px;
-  text-align:left;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  font-weight:800;
-}
-
-.set-btn:after{
-  content:"○";
-  font-size:22px;
-  color:#77777f;
-}
-
-.set-btn.done{
-  background:#1d3321;
-  border-color:#3f7548;
-  color:#b9edc1;
-}
-
-.set-btn.done:after{
-  content:"✓";
-  color:#8ee49b;
-}
-
-.day-complete{
-  display:none;
-  margin:14px 0;
-  padding:17px;
-  text-align:center;
-  border-radius:18px;
-  border:1px solid #376c40;
-  background:#17281a;
-  color:#b8eec0;
-  font-weight:850;
-}
-
-.day-complete.show{display:block}
-
-.progress-day{
-  margin:11px 0;
-  padding:14px;
-  background:#18181b;
-  border:1px solid #303035;
-  border-radius:17px;
-}
-
-.progress-day-top{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  font-weight:800;
-}
-
-.reset-btn{
-  width:100%;
-  border:1px solid #63383b;
-  border-radius:15px;
-  padding:12px;
-  background:#2b1a1b;
-  color:#f0a2a7;
-  font-weight:850;
-}
-
-.mini-note{
-  margin-top:10px;
-  margin-bottom:35px;
-  padding:12px 13px;
-  border-left:3px solid var(--gold);
-  background:#191815;
-  border-radius:0 12px 12px 0;
-  color:#c7c0b4;
-  font-size:13px;
-}
-
-.footer{
-  padding:20px 4px 35px;
-  text-align:center;
-  color:#77736b;
-  font-size:12px;
-}
-
-@media(max-width:480px){
-  .app{
-    padding-left:10px;
-    padding-right:10px;
-  }
-
-  .card{padding:15px}
-
-  .day-btn{
-    font-size:12px;
-    padding:9px 3px;
-  }
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#121212" />
+  <meta name="description" content="Van Silenus naar Adonis - 8 weken calisthenics trainingsapp" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" />
+  <title>Van Silenus naar Adonis</title>
+
+  <style>
+    :root{
+      --bg:#0c0c0d;
+      --panel:#171719;
+      --panel2:#202023;
+      --text:#f7f2e8;
+      --muted:#aaa59b;
+      --gold:#d8aa5b;
+      --gold2:#f0c778;
+      --green:#63c174;
+      --red:#ef6b6b;
+      --line:#35353a;
+      --shadow:0 10px 35px rgba(0,0,0,.34)
+    }
+
+    *{box-sizing:border-box}
+
+    html{
+      background:var(--bg);
+      color-scheme:dark
+    }
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 50% -20%,#312512 0,#111 38%,#0b0b0c 72%);
+      color:var(--text);
+      font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      min-height:100vh
+    }
+
+    button{font:inherit}
+
+    .app{
+      width:min(760px,100%);
+      margin:0 auto;
+      padding:env(safe-area-inset-top) 14px
+              calc(92px + env(safe-area-inset-bottom))
+    }
+
+    .hero{
+      padding:26px 8px 16px;
+      text-align:center
+    }
+
+    .eyebrow{
+      color:var(--gold2);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:12px;
+      font-weight:800
+    }
+
+    .hero h1{
+      margin:5px 0 2px;
+      font-size:clamp(28px,7vw,44px);
+      line-height:1.02
+    }
+
+    .subtitle{
+      color:var(--muted);
+      margin:6px 0 0
+    }
+
+    .nav{
+      position:fixed;
+      z-index:20;
+      left:50%;
+      bottom:10px;
+      transform:translateX(-50%);
+      width:min(730px,calc(100% - 20px));
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:6px;
+      background:rgba(22,22,24,.92);
+      backdrop-filter:blur(18px);
+      border:1px solid #2f2f34;
+      border-radius:20px;
+      padding:7px;
+      box-shadow:var(--shadow)
+    }
+
+    .nav button{
+      border:0;
+      background:transparent;
+      color:#bcb7ad;
+      border-radius:14px;
+      padding:11px 8px;
+      font-weight:750
+    }
+
+    .nav button.active{
+      background:#3a2d18;
+      color:#ffe2a8
+    }
+
+    .screen{display:none}
+    .screen.active{display:block}
+
+    .card{
+      background:linear-gradient(180deg,#1b1b1e,#151517);
+      border:1px solid #2c2c31;
+      border-radius:22px;
+      padding:18px;
+      margin:12px 0;
+      box-shadow:var(--shadow)
+    }
+
+    .topline{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:#2b2417;
+      color:#f5cd81;
+      border:1px solid #5d4825;
+      border-radius:999px;
+      padding:6px 10px;
+      font-weight:800;
+      font-size:12px
+    }
+
+    .badge.light{
+      background:#17241a;
+      color:#9ee5aa;
+      border-color:#285c32
+    }
+
+    .badge.extra{
+      background:#1b2030;
+      color:#b9c9ff;
+      border-color:#3b4b80
+    }
+
+    h2,h3{margin:0}
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+
+    .section-title{
+      margin:22px 4px 8px;
+      font-size:18px
+    }
+
+    .week-strip{
+      display:flex;
+      gap:8px;
+      overflow:auto;
+      padding:4px 2px 8px;
+      scrollbar-width:none
+    }
+
+    .week-strip::-webkit-scrollbar{display:none}
+
+    .week-btn{
+      flex:0 0 auto;
+      border:1px solid #39393e;
+      background:#17171a;
+      color:#ddd6c9;
+      border-radius:13px;
+      padding:9px 12px;
+      font-weight:800
+    }
+
+    .week-btn.active{
+      background:var(--gold);
+      border-color:var(--gold);
+      color:#17120a
+    }
+
+    .day-grid{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:5px;
+      margin-top:14px
+    }
+
+    .day{
+      background:#101012;
+      border:1px solid #29292e;
+      border-radius:12px;
+      padding:8px 3px;
+      text-align:center;
+      min-width:0
+    }
+
+    .day b{
+      display:block;
+      font-size:11px;
+      color:#8f8a82
+    }
+
+    .day span{
+      display:block;
+      margin-top:2px;
+      font-size:11px;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis
+    }
+
+    .day.training{
+      border-color:#694f28;
+      background:#211a10
+    }
+
+    .day.run{
+      border-color:#2d5a35;
+      background:#142019
+    }
+
+    .day.horse{
+      border-color:#494064;
+      background:#191624
+    }
+
+    .day.rest{
+      border-color:#35353a;
+      background:#121214
+    }
+
+    .training-head{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start
+    }
+
+    .training-head h2{font-size:24px}
+
+    .meta{
+      margin-top:4px;
+      color:var(--muted)
+    }
+
+    .round-panel{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:center;
+      background:#111113;
+      border:1px solid #303035;
+      border-radius:18px;
+      padding:14px;
+      margin:16px 0
+    }
+
+    .round-big{
+      font-size:22px;
+      font-weight:900
+    }
+
+    .round-hint{
+      margin-top:5px;
+      color:#d7c49e;
+      font-size:12px
+    }
+
+    .progress{
+      height:7px;
+      background:#29292d;
+      border-radius:99px;
+      overflow:hidden;
+      margin-top:8px
+    }
+
+    .progress span{
+      display:block;
+      height:100%;
+      background:linear-gradient(90deg,var(--gold),var(--gold2));
+      width:0;
+      transition:.25s
+    }
+
+    .timer{
+      font-variant-numeric:tabular-nums;
+      font-size:30px;
+      font-weight:900;
+      letter-spacing:.04em;
+      text-align:right
+    }
+
+    .timer-actions{
+      display:flex;
+      gap:6px;
+      justify-content:flex-end
+    }
+
+    .mini-btn,.action{
+      border:1px solid #424248;
+      background:#242428;
+      color:#f2ede4;
+      border-radius:12px;
+      padding:9px 12px;
+      font-weight:800
+    }
+
+    .mini-btn.primary,.action.primary{
+      background:var(--gold);
+      border-color:var(--gold);
+      color:#17120a
+    }
+
+    .mini-btn:disabled,.action:disabled{opacity:.4}
+
+    .exercise{
+      overflow:hidden;
+      padding:0
+    }
+
+    .demo{
+      height:155px;
+      position:relative;
+      background:linear-gradient(180deg,#26201a,#151517);
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      border-bottom:1px solid #303035
+    }
+
+    .wall-logo{
+      position:absolute;
+      top:14px;
+      left:0;
+      right:0;
+      text-align:center;
+      font-weight:1000;
+      letter-spacing:.08em;
+      color:rgba(240,199,120,.13);
+      font-size:clamp(17px,5vw,27px)
+    }
+
+    .adonis{
+      width:120px;
+      height:125px;
+      position:relative;
+      filter:drop-shadow(0 8px 8px rgba(0,0,0,.35));
+      transform-origin:50% 90%;
+      animation:demoMove 2.2s ease-in-out infinite
+    }
+
+    .adonis:before{
+      content:"";
+      position:absolute;
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      background:#d8b18d;
+      left:45px;
+      top:4px;
+      box-shadow:
+        0 26px 0 10px #c99655,
+        0 58px 0 17px #b87a3c
+    }
+
+    .adonis:after{
+      content:"";
+      position:absolute;
+      width:18px;
+      height:70px;
+      background:#c99655;
+      border-radius:12px;
+      left:29px;
+      top:42px;
+      transform:rotate(18deg);
+      box-shadow:44px 0 0 #c99655
+    }
+
+    .adonis .legs:before,
+    .adonis .legs:after{
+      content:"";
+      position:absolute;
+      width:20px;
+      height:67px;
+      background:#b87a3c;
+      border-radius:12px;
+      top:72px;
+      left:43px;
+      transform-origin:top center
+    }
+
+    .adonis .legs:after{left:63px}
+
+    .demo[data-motion="squat"] .adonis{animation-name:squat}
+    .demo[data-motion="lunge"] .adonis{animation-name:lunge}
+    .demo[data-motion="push"] .adonis{animation-name:push}
+    .demo[data-motion="core"] .adonis{animation-name:core}
+    .demo[data-motion="calf"] .adonis{animation-name:calf}
+    .demo[data-motion="bridge"] .adonis{animation-name:bridge}
+    .demo[data-motion="plank"] .adonis{animation-name:plank}
+    .demo[data-motion="thrust"] .adonis{animation-name:thrust}
+
+    @keyframes demoMove{
+      50%{transform:translateY(3px) rotate(-2deg)}
+    }
+
+    @keyframes squat{
+      50%{transform:translateY(25px) scaleY(.82)}
+    }
+
+    @keyframes lunge{
+      50%{transform:translateY(15px) rotate(-5deg)}
+    }
+
+    @keyframes push{
+      0%,100%{transform:rotate(76deg) translate(2px,-4px)}
+      50%{transform:rotate(76deg) translate(17px,-4px) scaleY(.9)}
+    }
+
+    @keyframes core{
+      50%{transform:rotate(90deg) translate(8px,22px)}
+    }
+
+    @keyframes calf{
+      50%{transform:translateY(-12px)}
+    }
+
+    @keyframes bridge{
+      0%,100%{transform:rotate(90deg) translate(12px,18px)}
+      50%{transform:rotate(82deg) translate(2px,8px)}
+    }
+
+    @keyframes plank{
+      0%,100%{transform:rotate(82deg) translate(11px,18px)}
+      50%{transform:rotate(78deg) translate(11px,18px)}
+    }
+
+    @keyframes thrust{
+      0%,100%{transform:translateY(2px)}
+      50%{transform:translateY(28px) scaleY(.75)}
+    }
+
+    .exercise-body{padding:16px}
+
+    .exercise-title{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:start
+    }
+
+    .exercise-title h3{font-size:20px}
+
+    .reps{
+      color:#f7cd7b;
+      font-weight:900;
+      white-space:nowrap
+    }
+
+    .hint{
+      color:#c9c2b7;
+      margin:8px 0 14px
+    }
+
+    .series-btn{
+      width:100%;
+      border:1px solid #5e4826;
+      background:#2b2215;
+      color:#f6d38f;
+      border-radius:14px;
+      padding:12px 14px;
+      font-weight:900
+    }
+
+    .series-btn.done{
+      background:#17341e;
+      border-color:#2e6f3b;
+      color:#aef0ba
+    }
+
+    .round-btn{
+      width:100%;
+      border:0;
+      border-radius:16px;
+      padding:15px;
+      font-size:17px;
+      font-weight:950;
+      background:linear-gradient(180deg,#dfb05e,#c8933e);
+      color:#181108;
+      box-shadow:0 8px 24px rgba(216,170,91,.2)
+    }
+
+    .round-btn:disabled{
+      filter:grayscale(1);
+      opacity:.35;
+      box-shadow:none
+    }
+
+    .note{
+      background:#191f18;
+      border:1px solid #315535;
+      color:#d5ead6;
+      border-radius:15px;
+      padding:12px 14px;
+      margin:12px 0
+    }
+
+    .note.warn{
+      background:#221a12;
+      border-color:#624620;
+      color:#eed7ad
+    }
+
+    .note.extra{
+      background:#171c2b;
+      border-color:#344475;
+      color:#d8e0ff
+    }
+
+    .week-card{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:12px
+    }
+
+    .week-num{
+      width:48px;
+      height:48px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      background:#2a2115;
+      color:#f3c873;
+      font-weight:1000
+    }
+
+    .week-list{
+      margin:8px 0 0;
+      padding-left:20px;
+      color:#d8d1c6
+    }
+
+    .week-list li{margin:4px 0}
+
+    .library-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px
+    }
+
+    .lib{
+      background:#171719;
+      border:1px solid #2d2d31;
+      border-radius:16px;
+      padding:14px
+    }
+
+    .lib b{display:block}
+
+    .lib span{
+      color:var(--muted);
+      font-size:13px
+    }
+
+    .equipment{
+      display:inline-block;
+      margin-top:7px;
+      color:#f1ca81;
+      font-size:12px;
+      font-weight:800
+    }
+
+    .footer{
+      color:#77736d;
+      text-align:center;
+      font-size:12px;
+      padding:24px 8px
+    }
+
+    @media(min-width:680px){
+      .library-grid{grid-template-columns:1fr 1fr}
+      .app{padding-left:22px;padding-right:22px}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *.adonis{animation:none!important}
+    }
+  </style>
 </head>
 
 <body>
 
-<main class="app">
-
-<section id="screen-home" class="screen active">
+<div class="app">
 
 <header class="hero">
-<div class="hero-logo">A</div>
-<div class="eyebrow">8 weken calisthenics</div>
-<h1>Van Silenus naar <span>Adonis</span></h1>
-<p class="subtitle">Vier trainingsavonden per week. Sterker, strakker en atletischer.</p>
-<p class="hero-quote">“De Adonis wordt niet gevonden. Hij wordt gebouwd.”</p>
+  <div class="eyebrow">8 weken sterker</div>
+  <h1>Van Silenus naar Adonis</h1>
+  <p class="subtitle">
+    Calisthenics • 4 vaste dagen + extra trainen wanneer jij wilt
+  </p>
 </header>
 
-<div class="card gold">
-<div class="topline">
-<div>
-<span class="badge" id="homeWeekBadge">Week 1</span>
-<h2 style="margin-top:9px">Jouw voortgang</h2>
-</div>
-<div id="homePercent" style="font-size:30px;font-weight:900;color:var(--gold2)">0%</div>
-</div>
+<main>
 
-<div class="progress-shell" style="margin-top:14px">
-<div id="homeProgressBar" class="progress-bar"></div>
-</div>
+<section id="today" class="screen active">
 
-<p id="homeProgressText" class="muted small" style="margin:10px 0 0">
-Nog geen series voltooid.
-</p>
-</div>
+  <div class="card">
 
-<h2 class="section-title">Vandaag</h2>
-<div id="todayCard" class="card"></div>
+    <div class="topline">
 
-<h2 class="section-title">Jouw <span>trainingsweek</span></h2>
+      <div>
+        <span class="badge" id="todayBadge">Programma</span>
+        <h2 style="margin-top:8px" id="todayTitle">Jouw trainingsweek</h2>
+        <div class="muted" id="todayText">Laden…</div>
+      </div>
 
-<div class="schedule-grid">
+      <button class="mini-btn" id="installBtn">
+        Installeer
+      </button>
 
-<div class="schedule-item">
-<div class="icon">⚔️</div>
-<strong>Maandag</strong>
-<div class="small muted">Push</div>
-<div class="small muted">Borst · schouders · triceps</div>
-</div>
+    </div>
 
-<div class="schedule-item">
-<div class="icon">🏛️</div>
-<strong>Dinsdag</strong>
-<div class="small muted">Pull & core</div>
-<div class="small muted">Rug · biceps · buik</div>
-</div>
+    <div class="day-grid" id="dayGrid"></div>
 
-<div class="schedule-item">
-<div class="icon">🦵</div>
-<strong>Donderdag</strong>
-<div class="small muted">Legs</div>
-<div class="small muted">Benen · billen · stabiliteit</div>
-</div>
+  </div>
 
-<div class="schedule-item">
-<div class="icon">🏺</div>
-<strong>Zaterdag</strong>
-<div class="small muted">Adonis full body</div>
-<div class="small muted">Bewust minder zware benen</div>
-</div>
+  <div class="week-strip" id="weekStrip"></div>
 
-</div>
-
-<div class="mini-note">
-De zaterdagtraining houdt bewust rekening met een langere of intensievere fietsrit op zondag.
-</div>
+  <div id="trainingMount"></div>
 
 </section>
 
+<section id="weeks" class="screen">
 
-<section id="screen-training" class="screen">
+  <h2 class="section-title">
+    Het volledige 8-weekse schema
+  </h2>
 
-<div style="padding-top:18px">
-<div class="eyebrow">Trainingsprogramma</div>
-<h1 style="margin:5px 0 6px">Bouw jouw Adonis</h1>
-<p class="muted">
-Kies je week en trainingsdag. Na iedere afgeronde serie hoef je maar één keer af te vinken.
-</p>
-</div>
-
-<h2 class="section-title">Kies je week</h2>
-
-<div id="weekStrip" class="week-strip"></div>
-
-<div id="dayStrip" class="day-strip">
-<button class="day-btn" data-day="1">Ma</button>
-<button class="day-btn" data-day="2">Di</button>
-<button class="day-btn" data-day="4">Do</button>
-<button class="day-btn" data-day="6">Za</button>
-</div>
-
-<div id="workoutContainer"></div>
+  <div id="weeksMount"></div>
 
 </section>
 
+<section id="library" class="screen">
 
-<section id="screen-progress" class="screen">
+  <h2 class="section-title">
+    Oefenkaarten
+  </h2>
 
-<div style="padding-top:18px">
-<div class="eyebrow">Voortgang</div>
-<h1 style="margin:5px 0 6px">Het Adonis-project</h1>
-<p class="muted">Iedere voltooide serie wordt automatisch op je telefoon opgeslagen.</p>
-</div>
+  <div class="card note warn">
+    De bewegende Adonis is een eenvoudige demonstratie.
+    Gebruik de tekst voor je techniek.
+    Bij twijfel gaat nette uitvoering altijd voor snelheid.
+  </div>
 
-<div class="card gold">
-<div class="topline">
-<div>
-<span class="badge" id="progressWeekBadge">Week 1</span>
-<h2 style="margin-top:9px">Weekscore</h2>
-</div>
-
-<div id="progressPercent" style="font-size:34px;font-weight:900;color:var(--gold2)">
-0%
-</div>
-</div>
-
-<div class="progress-shell" style="margin-top:15px">
-<div id="progressTotalBar" class="progress-bar"></div>
-</div>
-</div>
-
-<div id="progressDays"></div>
-
-<button id="resetWeekBtn" class="reset-btn">
-Voortgang van deze week wissen
-</button>
-
-<div class="footer">Van Silenus naar Adonis</div>
+  <div class="library-grid" id="libraryMount"></div>
 
 </section>
 
 </main>
 
+<div class="footer">
+  Voortgang wordt alleen op dit toestel opgeslagen.
+  Stop bij scherpe of uitstralende pijn.
+</div>
+
+</div>
 
 <nav class="nav">
 
-<button class="nav-btn active" data-screen="home">
-<span class="nav-icon">🏠</span>
-<span class="nav-text">Home</span>
-</button>
+  <button class="active" data-screen="today">
+    Vandaag
+  </button>
 
-<button class="nav-btn" data-screen="training">
-<span class="nav-icon">⚔️</span>
-<span class="nav-text">Training</span>
-</button>
+  <button data-screen="weeks">
+    8 weken
+  </button>
 
-<button class="nav-btn" data-screen="progress">
-<span class="nav-icon">🏆</span>
-<span class="nav-text">Voortgang</span>
-</button>
+  <button data-screen="library">
+    Oefenkaarten
+  </button>
 
 </nav>
 
-
 <script>
 
-const STORAGE_PREFIX="adonis_v4_";
-const schedule=[1,2,4,6];
+const START = new Date('2026-09-07T00:00:00');
 
-let selectedWeek=
-Number(localStorage.getItem(STORAGE_PREFIX+"selectedWeek"))||1;
+const weekData = [
 
-if(selectedWeek<1||selectedWeek>8)selectedWeek=1;
-
-const todayNumber=new Date().getDay();
-
-let selectedDay=
-schedule.includes(todayNumber)
-?todayNumber
-:getNextTrainingDay(todayNumber);
-
-
-const workouts={
-
-1:{
-day:"Maandag",
-title:"Push – borst, schouders & triceps",
-badge:"Push",
-icon:"⚔️",
-duration:"± 40–50 min",
-note:"Werk gecontroleerd. Stop iedere serie voordat je techniek instort.",
-
-exercises:[
 {
-id:"pushups",
-name:"Push-ups",
-icon:"💪",
-demo:"push",
-sets:4,
-base:8,
-step:1,
-suffix:"reps",
-cue:"Lichaam recht, borst richting vloer en ellebogen ongeveer 45 graden.",
-video:"push up proper form"
+  name:'Basis',
+  mins:10,
+  focus:'Rust wanneer nodig. Houd bij iedere oefening 1-2 goede herhalingen over.',
+  A:[
+    ['Push-ups','8'],
+    ['Squats','15'],
+    ['Achterwaartse lunges','8 per been'],
+    ['Dead bug','8 per kant'],
+    ['Kuitheffen','20']
+  ],
+  B:[
+    ['Push-ups','8'],
+    ['Glute bridge','15'],
+    ['Bird dog','8 per kant'],
+    ['Zijplank','20 sec. per kant'],
+    ['Squat thrusts','8']
+  ]
 },
+
 {
-id:"pikepushups",
-name:"Pike push-ups",
-icon:"🔺",
-demo:"push",
-sets:3,
-base:6,
-step:1,
-suffix:"reps",
-cue:"Heupen hoog. Laat je hoofd gecontroleerd richting de vloer zakken.",
-video:"pike push up proper form"
+  name:'Basis plus',
+  mins:10,
+  focus:'Probeer binnen dezelfde 10 minuten iets meer werk te doen, zonder te haasten.',
+  A:[
+    ['Push-ups','10'],
+    ['Squats','18'],
+    ['Achterwaartse lunges','9 per been'],
+    ['Dead bug','9 per kant'],
+    ['Kuitheffen','22']
+  ],
+  B:[
+    ['Push-ups','10'],
+    ['Glute bridge','18'],
+    ['Bird dog','9 per kant'],
+    ['Zijplank','25 sec. per kant'],
+    ['Squat thrusts','10']
+  ]
 },
+
 {
-id:"chairdips",
-name:"Chair dips",
-icon:"🪑",
-demo:"dip",
-sets:3,
-base:8,
-step:1,
-suffix:"reps",
-cue:"Gebruik een stevige stoel. Schouders laag en zak gecontroleerd.",
-video:"chair dips proper form"
+  name:'Meer herhalingen',
+  mins:12,
+  focus:'Werk 12 minuten. Noteer hoeveel volledige rondes je haalt.',
+  A:[
+    ['Push-ups','12'],
+    ['Squats','20'],
+    ['Achterwaartse lunges','10 per been'],
+    ['Dead bug','10 per kant'],
+    ['Kuitheffen','25']
+  ],
+  B:[
+    ['Push-ups','12'],
+    ['Glute bridge','20'],
+    ['Bird dog','10 per kant'],
+    ['Zijplank','30 sec. per kant'],
+    ['Squat thrusts','10']
+  ]
 },
+
 {
-id:"diamond",
-name:"Diamond push-ups",
-icon:"♦️",
-demo:"push",
-sets:3,
-base:5,
-step:1,
-suffix:"reps",
-cue:"Handen dichter bij elkaar en ellebogen langs het lichaam.",
-video:"diamond push up proper form"
+  name:'Extra ronde',
+  mins:12,
+  focus:'Probeer 1 extra oefening of ronde te halen ten opzichte van week 3.',
+  A:[
+    ['Push-ups','12-15'],
+    ['Squats','20'],
+    ['Achterwaartse lunges','10 per been'],
+    ['Dead bug','10 per kant'],
+    ['Kuitheffen','25']
+  ],
+  B:[
+    ['Push-ups','12-15'],
+    ['Glute bridge','20'],
+    ['Bird dog','10 per kant'],
+    ['Zijplank','30 sec. per kant'],
+    ['Squat thrusts','12']
+  ]
 },
+
 {
-id:"plankshoulder",
-name:"Plank shoulder taps",
-icon:"🛡️",
-demo:"plank",
-sets:3,
-base:16,
-step:2,
-suffix:"taps",
-cue:"Houd je heupen zo stil mogelijk terwijl je afwisselend je schouder aantikt.",
-video:"plank shoulder taps proper form"
+  name:'Langzaam en zwaarder',
+  mins:12,
+  focus:'Bij de langzame oefeningen: 3 seconden zakken en gecontroleerd omhoog.',
+  A:[
+    ['Langzame push-ups','8-12'],
+    ['Squat met 2 sec. pauze','12-15'],
+    ['Bulgarian split squat','8 per been'],
+    ['Volledige dead bug','8 per kant'],
+    ['Kuitheffen op 1 been','12 per been']
+  ],
+  B:[
+    ['Langzame push-ups','8-12'],
+    ['Single-leg glute bridge','8 per been'],
+    ['Bird dog 3 sec. vasthouden','8 per kant'],
+    ['Zijplank vanaf voeten','20-30 sec. per kant'],
+    ['Squat thrusts','10']
+  ]
+},
+
+{
+  name:'Zwaardere varianten plus',
+  mins:12,
+  focus:'Verhoog alleen als je techniek goed blijft.',
+  A:[
+    ['Langzame push-ups','10-12'],
+    ['Squat met 2 sec. pauze','15'],
+    ['Bulgarian split squat','10 per been'],
+    ['Volledige dead bug','10 per kant'],
+    ['Kuitheffen op 1 been','15 per been']
+  ],
+  B:[
+    ['Langzame push-ups','10-12'],
+    ['Single-leg glute bridge','10 per been'],
+    ['Bird dog 3 sec. vasthouden','10 per kant'],
+    ['Zijplank vanaf voeten','30 sec. per kant'],
+    ['Squat thrusts','12']
+  ]
+},
+
+{
+  name:'15 minuten',
+  mins:15,
+  focus:'Maak 15 minuten nette rondes. Een rugzak van 3-5 kg is alleen bij benen optioneel.',
+  A:[
+    ['Langzame push-ups','10-15'],
+    ['Squats met rugzak of pauze','15'],
+    ['Bulgarian split squat','10 per been'],
+    ['Volledige dead bug','10 per kant'],
+    ['Kuitheffen op 1 been','15 per been']
+  ],
+  B:[
+    ['Langzame push-ups','10-15'],
+    ['Single-leg glute bridge','10 per been'],
+    ['Bird dog 3 sec. vasthouden','10 per kant'],
+    ['Zijplank vanaf voeten','30-40 sec. per kant'],
+    ['Squat thrusts','12']
+  ]
+},
+
+{
+  name:'Eindweek',
+  mins:15,
+  focus:'Vergelijk je rondes met eerdere weken. Techniek gaat altijd voor snelheid.',
+  A:[
+    ['Langzame push-ups','12-15'],
+    ['Squats met rugzak of pauze','18'],
+    ['Bulgarian split squat','12 per been'],
+    ['Volledige dead bug','12 per kant'],
+    ['Kuitheffen op 1 been','18 per been']
+  ],
+  B:[
+    ['Langzame push-ups','12-15'],
+    ['Single-leg glute bridge','12 per been'],
+    ['Bird dog 3 sec. vasthouden','12 per kant'],
+    ['Zijplank vanaf voeten','40 sec. per kant'],
+    ['Squat thrusts','12-15']
+  ]
 }
+
+];
+
+const info = {
+
+'Push-ups':[
+  'Lichaam recht, handen onder je schouders en ellebogen schuin naar achteren.',
+  'push','Geen'
+],
+
+'Langzame push-ups':[
+  'Zak ongeveer 3 seconden, houd je romp strak en duw gecontroleerd terug.',
+  'push','Geen'
+],
+
+'Squats':[
+  'Borst omhoog, knieën volgen je tenen en duw vanuit je hele voet.',
+  'squat','Geen'
+],
+
+'Squat met 2 sec. pauze':[
+  'Zak beheerst, pauzeer 2 seconden onderin en kom gecontroleerd omhoog.',
+  'squat','Geen'
+],
+
+'Squats met rugzak of pauze':[
+  'Gebruik eventueel een rugzak van 3-5 kg. Geen rugzak? Pauzeer 2 seconden onderin.',
+  'squat','Rugzak optioneel'
+],
+
+'Achterwaartse lunges':[
+  'Stap rustig naar achteren en houd je voorste knie stabiel.',
+  'lunge','Geen'
+],
+
+'Bulgarian split squat':[
+  'Zet je achterste voet op een stevige stoel of bank en zak recht naar beneden.',
+  'lunge','Stoel of bank'
+],
+
+'Dead bug':[
+  'Druk je onderrug zacht in de vloer en beweeg langzaam.',
+  'core','Geen'
+],
+
+'Volledige dead bug':[
+  'Houd je onderrug stabiel terwijl arm en tegenovergesteld been volledig uitstrekken.',
+  'core','Geen'
+],
+
+'Kuitheffen':[
+  'Kom hoog op je tenen, pauzeer kort en zak gecontroleerd.',
+  'calf','Geen'
+],
+
+'Kuitheffen op 1 been':[
+  'Steun licht tegen een muur en beweeg langzaam door de volledige enkelbeweging.',
+  'calf','Muur optioneel'
+],
+
+'Glute bridge':[
+  'Duw vanuit je hielen en span je billen bovenaan aan zonder je onderrug te overstrekken.',
+  'bridge','Geen'
+],
+
+'Single-leg glute bridge':[
+  'Houd je bekken recht en duw vanuit één hiel omhoog.',
+  'bridge','Geen'
+],
+
+'Bird dog':[
+  'Strek tegenovergestelde arm en been, zonder je romp te draaien.',
+  'core','Geen'
+],
+
+'Bird dog 3 sec. vasthouden':[
+  'Strek arm en tegenovergesteld been en houd de eindpositie 3 seconden vast.',
+  'core','Geen'
+],
+
+'Zijplank':[
+  'Maak een rechte lijn van schouder tot knie/voet en houd je heup hoog.',
+  'plank','Geen'
+],
+
+'Zijplank vanaf voeten':[
+  'Steun op je onderarm en voeten en houd je lichaam lang en stabiel.',
+  'plank','Geen'
+],
+
+'Squat thrusts':[
+  'Handen naar de vloer, voeten gecontroleerd naar achter en weer terug.',
+  'thrust','Geen'
 ]
-},
-
-
-2:{
-day:"Dinsdag",
-title:"Pull & core – rug, biceps & buik",
-badge:"Pull + core",
-icon:"🏛️",
-duration:"± 40–50 min",
-note:"Geen optrekstang? Gebruik voor de rows een zeer stevige tafel en test deze eerst.",
-
-exercises:[
-{
-id:"tableRows",
-name:"Inverted table rows",
-icon:"🧱",
-demo:"row",
-sets:4,
-base:6,
-step:1,
-suffix:"reps",
-cue:"Trek je borst richting de tafelrand. Houd je lichaam als één rechte plank.",
-video:"inverted row table exercise"
-},
-{
-id:"reverseSnow",
-name:"Reverse snow angels",
-icon:"🪽",
-demo:"core",
-sets:3,
-base:10,
-step:1,
-suffix:"reps",
-cue:"Lig op je buik en beweeg je armen langzaam vanuit boven naar je heupen.",
-video:"reverse snow angels exercise"
-},
-{
-id:"supermanPull",
-name:"Superman pull-down",
-icon:"🏹",
-demo:"core",
-sets:3,
-base:8,
-step:1,
-suffix:"reps",
-cue:"Til borst licht op en trek je ellebogen richting je zij.",
-video:"superman pull down exercise"
-},
-{
-id:"deadbug",
-name:"Dead bug",
-icon:"🛡️",
-demo:"core",
-sets:3,
-base:8,
-step:1,
-suffix:"per zijde",
-cue:"Druk je onderrug tegen de vloer en beweeg langzaam.",
-video:"dead bug exercise proper form"
-},
-{
-id:"hollow",
-name:"Hollow body hold",
-icon:"🔥",
-demo:"core",
-sets:3,
-base:20,
-step:3,
-suffix:"sec",
-cue:"Onderrug blijft tegen de vloer.",
-video:"hollow body hold proper form"
-}
-]
-},
-
-
-4:{
-day:"Donderdag",
-title:"Legs – kracht, billen & stabiliteit",
-badge:"Legs",
-icon:"🦵",
-duration:"± 40–50 min",
-note:"Kwaliteit boven snelheid. Knieën volgen de richting van je tenen.",
-
-exercises:[
-{
-id:"squats",
-name:"Bodyweight squats",
-icon:"🏺",
-demo:"squat",
-sets:4,
-base:12,
-step:2,
-suffix:"reps",
-cue:"Zak beheerst, houd je borst trots en duw vanuit de hele voet omhoog.",
-video:"bodyweight squat proper form"
-},
-{
-id:"lunges",
-name:"Reverse lunges",
-icon:"🦵",
-demo:"lunge",
-sets:3,
-base:8,
-step:1,
-suffix:"per been",
-cue:"Stap naar achteren en houd je voorste knie stabiel.",
-video:"reverse lunge proper form"
-},
-{
-id:"bulgarian",
-name:"Bulgarian split squat",
-icon:"🪑",
-demo:"lunge",
-sets:3,
-base:6,
-step:1,
-suffix:"per been",
-cue:"Achterste voet op een stevige stoel.",
-video:"bulgarian split squat proper form"
-},
-{
-id:"glutebridge",
-name:"Glute bridge",
-icon:"🌉",
-demo:"bridge",
-sets:3,
-base:12,
-step:2,
-suffix:"reps",
-cue:"Span bovenaan je billen stevig aan zonder je onderrug te overstrekken.",
-video:"glute bridge proper form"
-},
-{
-id:"calfraises",
-name:"Calf raises",
-icon:"⚡",
-demo:"squat",
-sets:3,
-base:15,
-step:2,
-suffix:"reps",
-cue:"Kom volledig omhoog op je tenen en zak langzaam terug.",
-video:"calf raise proper form"
-},
-{
-id:"wallsit",
-name:"Wall sit",
-icon:"🧱",
-demo:"squat",
-sets:3,
-base:25,
-step:5,
-suffix:"sec",
-cue:"Rug tegen de muur en houd constante spanning.",
-video:"wall sit proper form"
-}
-]
-},
-
-
-6:{
-day:"Zaterdag",
-title:"Adonis – full body",
-badge:"Full body",
-icon:"🏺",
-duration:"± 35–45 min",
-note:"Bewust geen zware beensessie. Zo houd je meer frisheid voor een langere of intensievere fietsrit op zondag.",
-
-exercises:[
-{
-id:"satPush",
-name:"Push-ups",
-icon:"💪",
-demo:"push",
-sets:3,
-base:10,
-step:1,
-suffix:"reps",
-cue:"Strakke romp en volledige gecontroleerde herhalingen.",
-video:"push up proper form"
-},
-{
-id:"satRows",
-name:"Inverted rows",
-icon:"🏛️",
-demo:"row",
-sets:3,
-base:7,
-step:1,
-suffix:"reps",
-cue:"Trek vanuit je rug.",
-video:"inverted row proper form"
-},
-{
-id:"satPike",
-name:"Pike push-ups",
-icon:"🔺",
-demo:"push",
-sets:3,
-base:6,
-step:1,
-suffix:"reps",
-cue:"Focus op schouders.",
-video:"pike push up proper form"
-},
-{
-id:"satBridge",
-name:"Glute bridge",
-icon:"🌉",
-demo:"bridge",
-sets:2,
-base:12,
-step:1,
-suffix:"reps",
-cue:"Lichte activatie van de billen.",
-video:"glute bridge proper form"
-},
-{
-id:"satSidePlank",
-name:"Side plank",
-icon:"🛡️",
-demo:"plank",
-sets:3,
-base:20,
-step:3,
-suffix:"sec per zijde",
-cue:"Maak een rechte lijn van schouder tot enkel.",
-video:"side plank proper form"
-},
-{
-id:"satHollow",
-name:"Hollow body hold",
-icon:"🔥",
-demo:"core",
-sets:3,
-base:20,
-step:3,
-suffix:"sec",
-cue:"Span je buik stevig aan.",
-video:"hollow body hold proper form"
-}
-]
-}
-};
-
-
-function getNextTrainingDay(day){
-for(const trainingDay of schedule){
-if(trainingDay>day)return trainingDay;
-}
-return 1;
-}
-
-
-function targetFor(exercise,week){
-return (exercise.base+((week-1)*exercise.step))+" "+exercise.suffix;
-}
-
-
-function progressKey(week,day,id,set){
-return STORAGE_PREFIX+"done_"+week+"_"+day+"_"+id+"_"+set;
-}
-
-
-function isSetDone(week,day,id,set){
-return localStorage.getItem(progressKey(week,day,id,set))==="1";
-}
-
-
-function setDone(week,day,id,set,done){
-const key=progressKey(week,day,id,set);
-done?localStorage.setItem(key,"1"):localStorage.removeItem(key);
-}
-
-
-function getDayProgress(week,day){
-let total=0;
-let done=0;
-
-workouts[day].exercises.forEach(ex=>{
-for(let i=1;i<=ex.sets;i++){
-total++;
-if(isSetDone(week,day,ex.id,i))done++;
-}
-});
-
-return{
-total,
-done,
-percent:total?Math.round(done/total*100):0
-};
-}
-
-
-function getWeekProgress(week){
-let total=0;
-let done=0;
-
-schedule.forEach(day=>{
-const p=getDayProgress(week,day);
-total+=p.total;
-done+=p.done;
-});
-
-return{
-total,
-done,
-percent:total?Math.round(done/total*100):0
-};
-}
-
-
-function demoHTML(type){
-
-return`
-<div class="demo ${type}">
-<div class="demo-title">Bewegend voorbeeld</div>
-<div class="demo-floor"></div>
-
-<div class="figure">
-<div class="head"></div>
-<div class="body"></div>
-<div class="arm1"></div>
-<div class="arm2"></div>
-<div class="leg1"></div>
-<div class="leg2"></div>
-</div>
-</div>
-`;
-}
-
-
-function renderWeekStrip(){
-
-const strip=document.getElementById("weekStrip");
-strip.innerHTML="";
-
-for(let week=1;week<=8;week++){
-
-const b=document.createElement("button");
-
-b.className="week-btn"+(week===selectedWeek?" active":"");
-b.textContent="Week "+week;
-
-b.onclick=()=>{
-selectedWeek=week;
-localStorage.setItem(STORAGE_PREFIX+"selectedWeek",week);
-renderEverything();
-};
-
-strip.appendChild(b);
-}
-}
-
-
-function renderDayStrip(){
-
-document.querySelectorAll(".day-btn").forEach(b=>{
-b.classList.toggle("active",Number(b.dataset.day)===selectedDay);
-});
-}
-
-
-function renderWorkout(){
-
-const container=document.getElementById("workoutContainer");
-const workout=workouts[selectedDay];
-const progress=getDayProgress(selectedWeek,selectedDay);
-
-let html=`
-
-<div class="workout-header">
-
-<div class="topline">
-
-<div>
-<span class="badge">${workout.icon} ${workout.badge}</span>
-<h2>${workout.day}</h2>
-<div class="muted">${workout.title}</div>
-</div>
-
-<div style="font-size:25px;font-weight:900;color:var(--gold2)">
-${progress.percent}%
-</div>
-
-</div>
-
-<div class="workout-meta">
-<span class="badge extra">Week ${selectedWeek}</span>
-<span class="badge rest">⏱ ${workout.duration}</span>
-</div>
-
-<div class="progress-shell" style="margin-top:14px">
-<div class="progress-bar" style="width:${progress.percent}%"></div>
-</div>
-
-<div class="warning">${workout.note}</div>
-
-</div>
-`;
-
-
-workout.exercises.forEach((exercise,index)=>{
-
-let completed=0;
-
-for(let i=1;i<=exercise.sets;i++){
-if(isSetDone(selectedWeek,selectedDay,exercise.id,i))completed++;
-}
-
-const complete=completed===exercise.sets;
-const target=targetFor(exercise,selectedWeek);
-
-const search=
-"https://www.youtube.com/results?search_query="+
-encodeURIComponent(exercise.video);
-
-
-html+=`
-
-<article class="exercise ${complete?"complete":""}">
-
-<div class="exercise-main">
-
-<div class="exercise-icon">${exercise.icon}</div>
-
-<div>
-<div class="muted small">Oefening ${index+1}</div>
-<h3>${exercise.name}</h3>
-
-<div class="exercise-target">
-${exercise.sets} series · ${target}
-</div>
-
-<p class="exercise-cue">${exercise.cue}</p>
-</div>
-
-</div>
-
-${demoHTML(exercise.demo)}
-
-<a class="video-link"
-href="${search}"
-target="_blank"
-rel="noopener">
-▶ Bekijk echte video-uitleg
-</a>
-
-<div class="sets">
-`;
-
-
-for(let s=1;s<=exercise.sets;s++){
-
-const done=
-isSetDone(selectedWeek,selectedDay,exercise.id,s);
-
-html+=`
-
-<button
-class="set-btn ${done?"done":""}"
-data-exercise="${exercise.id}"
-data-set="${s}">
-<span>Serie ${s} · ${target}</span>
-</button>
-
-`;
-}
-
-html+=`
-</div>
-</article>
-`;
-
-});
-
-
-html+=`
-
-<div class="day-complete ${progress.percent===100?"show":""}">
-🏆 ${workout.day} voltooid.<br>
-Adonis is weer een stap dichterbij.
-</div>
-
-`;
-
-container.innerHTML=html;
-
-
-container.querySelectorAll(".set-btn").forEach(btn=>{
-
-btn.onclick=()=>{
-
-const id=btn.dataset.exercise;
-const set=Number(btn.dataset.set);
-const done=isSetDone(selectedWeek,selectedDay,id,set);
-
-setDone(selectedWeek,selectedDay,id,set,!done);
-
-renderEverything();
 
 };
 
-});
+const schedule = [
+  ['Ma','A'],
+  ['Di','B'],
+  ['Wo','PAARD'],
+  ['Do','A'],
+  ['Vr','RUST'],
+  ['Za','B-LICHT'],
+  ['Zo','LOPEN']
+];
+
+const extraTrainingChoice = {
+  2:'A',
+  4:'A',
+  6:'A'
+};
+
+function stripTime(d){
+  return new Date(
+    d.getFullYear(),
+    d.getMonth(),
+    d.getDate()
+  );
 }
 
+function todayIndex(){
+  const js = new Date().getDay();
+
+  const map = {
+    1:0,
+    2:1,
+    3:2,
+    4:3,
+    5:4,
+    6:5,
+    0:6
+  };
+
+  return map[js];
+}
+
+let selectedWeek = Math.max(
+  0,
+  Math.min(
+    7,
+    Math.floor(
+      (stripTime(new Date()) - START) /
+      604800000
+    )
+  )
+);
+
+let selectedDay = todayIndex();
+
+let timer = null;
+let timeLeft = 0;
+let running = false;
+let deferredPrompt = null;
+let timerContext = '';
+
+function currentWeek(){
+
+  return Math.max(
+    0,
+    Math.min(
+      7,
+      Math.floor(
+        (stripTime(new Date()) - START) /
+        604800000
+      )
+    )
+  );
+
+}
+
+function fmtDate(d){
+
+  return d.toLocaleDateString(
+    'nl-NL',
+    {
+      day:'numeric',
+      month:'short'
+    }
+  );
+
+}
+
+function dateForWeekDay(w,dayIndex){
+
+  const d = new Date(START);
+
+  d.setDate(
+    d.getDate() +
+    w * 7 +
+    dayIndex
+  );
+
+  return d;
+
+}
+
+function isExtraDay(dayIndex){
+
+  return [2,4,6].includes(dayIndex);
+
+}
+
+function trainingType(dayIndex){
+
+  if(
+    dayIndex === 0 ||
+    dayIndex === 3
+  ){
+    return 'A';
+  }
+
+  if(
+    dayIndex === 1 ||
+    dayIndex === 5
+  ){
+    return 'B';
+  }
+
+  if(isExtraDay(dayIndex)){
+    return extraTrainingChoice[dayIndex] || 'A';
+  }
+
+  return 'A';
+
+}
+
+function storageKey(w,d,type){
+
+  return `ad-${w}-${d}-${type}`;
+
+}
+
+function getState(w,d,type){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        storageKey(w,d,type)
+      )
+    ) || {
+      round:1,
+      done:[],
+      completed:0
+    };
+
+  }catch{
+
+    return {
+      round:1,
+      done:[],
+      completed:0
+    };
+
+  }
+
+}
+
+function setState(w,d,type,s){
+
+  localStorage.setItem(
+    storageKey(w,d,type),
+    JSON.stringify(s)
+  );
+
+}
+
+function reduceRep(txt,f){
+
+  const m = txt.match(
+    /^(\d+)(?:-(\d+))?(.*)$/
+  );
+
+  if(!m){
+    return txt;
+  }
+
+  const a = Math.max(
+    1,
+    Math.round(+m[1] * f)
+  );
+
+  const b = m[2]
+    ? Math.max(
+        a,
+        Math.round(+m[2] * f)
+      )
+    : null;
+
+  return `${a}${b ? '-' + b : ''}${m[3]}`;
+
+}
+
+function saturdayLight(exs){
+
+  return exs.map(([n,r],i)=>{
+
+    if(i === 0 || i === 2){
+      return [n,r];
+    }
+
+    if(n.includes('Glute bridge')){
+      return [n,reduceRep(r,.75)];
+    }
+
+    if(n.includes('Zijplank')){
+      return [n,reduceRep(r,.85)];
+    }
+
+    if(n.includes('Squat thrusts')){
+      return [
+        n,
+        reduceRep(r,.7) + ' • optioneel'
+      ];
+    }
+
+    return [n,r];
+
+  });
+
+}
+
+function resetTimerForSelection(){
+
+  clearInterval(timer);
+
+  running = false;
+  timeLeft = 0;
+  timerContext = '';
+
+}
+
+function dayGrid(){
+
+  document.querySelector('#dayGrid').innerHTML =
+    schedule.map(([d,t])=>{
+
+      let cls = '';
+
+      if(
+        t === 'A' ||
+        t === 'B' ||
+        t === 'B-LICHT'
+      ){
+        cls = 'training';
+      }
+
+      if(t === 'LOPEN'){
+        cls = 'run';
+      }
+
+      if(t === 'PAARD'){
+        cls = 'horse';
+      }
+
+      if(t === 'RUST'){
+        cls = 'rest';
+      }
+
+      return `
+        <div class="day ${cls}">
+          <b>${d}</b>
+          <span>${t}</span>
+        </div>
+      `;
+
+    }).join('');
+
+}
+
+function weekStrip(){
+
+  const el =
+    document.querySelector('#weekStrip');
+
+  el.innerHTML =
+    weekData.map((w,i)=>`
+
+      <button
+        class="week-btn
+        ${i === selectedWeek ? 'active' : ''}"
+        data-week="${i}">
+
+        Week ${i+1}
+
+      </button>
+
+    `).join('');
+
+  el.querySelectorAll('button')
+    .forEach(b => {
+
+      b.onclick = () => {
+
+        selectedWeek =
+          +b.dataset.week;
+
+        resetTimerForSelection();
+
+        renderToday();
+
+      };
+
+    });
+
+}
+
+function extraDayMessage(dayIndex){
+
+  if(dayIndex === 2){
+
+    return `
+      Woensdag blijft je paardrijdag.
+      Als je je goed voelt kun je daarnaast een extra training starten.
+    `;
+
+  }
+
+  if(dayIndex === 4){
+
+    return `
+      Vrijdag is normaal je rustdag.
+      Je kunt toch trainen als je goed hersteld bent.
+    `;
+
+  }
+
+  if(dayIndex === 6){
+
+    return `
+      Zondag loop je meestal langer of intensiever.
+      Extra trainen kan, maar houd rekening met je totale belasting.
+    `;
+
+  }
+
+  return '';
+
+}
 
 function renderToday(){
 
-const card=document.getElementById("todayCard");
-const today=new Date().getDay();
+  dayGrid();
+  weekStrip();
 
-if(schedule.includes(today)){
+  const cw =
+    currentWeek();
 
-const workout=workouts[today];
-const progress=getDayProgress(selectedWeek,today);
+  document.querySelector('#todayBadge').textContent =
+    selectedWeek === cw
+      ? 'Deze week'
+      : `Week ${selectedWeek+1}`;
 
-card.innerHTML=`
+  document.querySelector('#todayTitle').textContent =
+    `Week ${selectedWeek+1} · ${weekData[selectedWeek].name}`;
 
-<div class="topline">
+  document.querySelector('#todayText').textContent =
+    `${fmtDate(dateForWeekDay(selectedWeek,0))}
+    t/m
+    ${fmtDate(dateForWeekDay(selectedWeek,6))}`;
 
-<div>
-<span class="badge light">Trainingsdag</span>
-<h2 style="margin-top:9px">${workout.icon} ${workout.day}</h2>
-<p class="muted" style="margin:5px 0 0">${workout.title}</p>
-</div>
+  const mount =
+    document.querySelector('#trainingMount');
 
-<strong style="color:var(--gold2);font-size:24px">
-${progress.percent}%
-</strong>
+  const extra =
+    isExtraDay(selectedDay);
 
-</div>
+  mount.innerHTML = `
 
-<button class="today-action" id="startTodayBtn">
-Open training
-</button>
-`;
+    <div class="card">
 
-document.getElementById("startTodayBtn").onclick=()=>{
-selectedDay=today;
-switchScreen("training");
-};
+      <div
+        class="section-title"
+        style="margin:0 0 10px">
 
-}else{
+        Kies trainingsdag
 
-const next=getNextTrainingDay(today);
-const workout=workouts[next];
+      </div>
 
-card.innerHTML=`
+      <div class="week-strip">
 
-<span class="badge rest">Herstel</span>
+        ${[0,1,2,3,4,5,6].map(i=>{
 
-<h2 style="margin-top:9px">
-Vandaag geen calisthenics
-</h2>
+          const regular =
+            [0,1,3,5].includes(i);
 
-<p class="muted">
-Je volgende sessie is
-<strong>${workout.day}</strong>:
-${workout.title}.
-</p>
+          const label =
+            regular
+              ? schedule[i][1]
+              : 'EXTRA';
 
-<button class="today-action" id="nextWorkoutBtn">
-Bekijk ${workout.day}
-</button>
-`;
+          return `
 
-document.getElementById("nextWorkoutBtn").onclick=()=>{
-selectedDay=next;
-switchScreen("training");
-};
+            <button
+              class="week-btn
+              ${i === selectedDay ? 'active' : ''}"
+              data-day="${i}">
+
+              ${schedule[i][0]} · ${label}
+
+            </button>
+
+          `;
+
+        }).join('')}
+
+      </div>
+
+      ${extra ? `
+
+        <div class="note extra">
+
+          <b>Extra trainingsdag</b>
+          <br>
+
+          ${extraDayMessage(selectedDay)}
+
+        </div>
+
+        <div
+          class="section-title"
+          style="margin:10px 0 5px">
+
+          Welke training wil je doen?
+
+        </div>
+
+        <div class="week-strip">
+
+          <button
+            class="week-btn
+            ${extraTrainingChoice[selectedDay] === 'A'
+              ? 'active'
+              : ''
+            }"
+            data-extra-type="A">
+
+            Training A
+
+          </button>
+
+          <button
+            class="week-btn
+            ${extraTrainingChoice[selectedDay] === 'B'
+              ? 'active'
+              : ''
+            }"
+            data-extra-type="B">
+
+            Training B
+
+          </button>
+
+        </div>
+
+      ` : ''}
+
+    </div>
+
+    <div id="actualTraining"></div>
+
+  `;
+
+  mount
+    .querySelectorAll('[data-day]')
+    .forEach(b => {
+
+      b.onclick = () => {
+
+        selectedDay =
+          +b.dataset.day;
+
+        resetTimerForSelection();
+
+        renderToday();
+
+      };
+
+    });
+
+  mount
+    .querySelectorAll('[data-extra-type]')
+    .forEach(b => {
+
+      b.onclick = () => {
+
+        extraTrainingChoice[selectedDay] =
+          b.dataset.extraType;
+
+        resetTimerForSelection();
+
+        renderToday();
+
+      };
+
+    });
+
+  renderTraining();
 
 }
+
+function roundTitle(s){
+
+  if(s.round <= 3){
+
+    return `Ronde ${s.round} van 3`;
+
+  }
+
+  return `Ronde ${s.round} · doel gehaald`;
+
 }
 
+function renderTraining(){
 
-function renderHomeProgress(){
+  const w =
+    weekData[selectedWeek];
 
-const p=getWeekProgress(selectedWeek);
+  const type =
+    trainingType(selectedDay);
 
-document.getElementById("homeWeekBadge").textContent="Week "+selectedWeek;
-document.getElementById("homePercent").textContent=p.percent+"%";
-document.getElementById("homeProgressBar").style.width=p.percent+"%";
+  let exercises =
+    [...w[type]];
 
-document.getElementById("homeProgressText").textContent=
-p.done===0
-?"Nog geen series voltooid."
-:p.percent===100
-?"Week "+selectedWeek+" volledig voltooid. 🏆"
-:p.done+" van "+p.total+" series voltooid.";
+  const isSat =
+    selectedDay === 5;
+
+  const extra =
+    isExtraDay(selectedDay);
+
+  if(isSat){
+
+    exercises =
+      saturdayLight(exercises);
+
+  }
+
+  let s =
+    getState(
+      selectedWeek,
+      selectedDay,
+      type
+    );
+
+  if(
+    !Array.isArray(s.done) ||
+    s.done.length !== exercises.length
+  ){
+
+    s.done =
+      Array(exercises.length).fill(false);
+
+  }
+
+  const newTimerContext =
+    `${selectedWeek}-${selectedDay}-${type}`;
+
+  if(timerContext !== newTimerContext){
+
+    clearInterval(timer);
+
+    running = false;
+
+    timeLeft =
+      w.mins * 60;
+
+    timerContext =
+      newTimerContext;
+
+  }
+
+  const date =
+    dateForWeekDay(
+      selectedWeek,
+      selectedDay
+    );
+
+  const completed =
+    s.done.filter(Boolean).length;
+
+  const allDone =
+    s.done.every(Boolean);
+
+  const canStartNextRound =
+    allDone &&
+    timeLeft > 0;
+
+  document.querySelector('#actualTraining').innerHTML = `
+
+    <div class="card">
+
+      <div class="training-head">
+
+        <div>
+
+          <span
+            class="badge
+            ${isSat ? 'light' : ''}
+            ${extra ? 'extra' : ''}">
+
+            ${schedule[selectedDay][0]}
+
+            ${isSat
+              ? ' · herstelvariant'
+              : ''
+            }
+
+            ${extra
+              ? ' · extra training'
+              : ''
+            }
+
+          </span>
+
+          <h2 style="margin-top:7px">
+            Training ${type}
+          </h2>
+
+          <div class="meta">
+
+            ${w.mins} minuten ·
+            zoveel nette rondes als mogelijk
+
+          </div>
+
+          <div class="muted small">
+
+            ${date.toLocaleDateString(
+              'nl-NL',
+              {
+                weekday:'long',
+                day:'numeric',
+                month:'long'
+              }
+            )}
+
+          </div>
+
+        </div>
+
+      </div>
+
+      ${isSat ? `
+
+        <div class="note">
+
+          Zondag loop je langer of intensiever.
+          Daarom is zaterdag bewust lichter:
+          geen extra gewicht en minder beenvolume.
+          Squat thrusts zijn optioneel.
+
+        </div>
+
+      ` : ''}
+
+      ${extra && selectedDay === 6 ? `
+
+        <div class="note warn">
+
+          <b>Zondag:</b>
+          houd rekening met je langere of intensievere hardlooptraining.
+
+        </div>
+
+      ` : ''}
+
+      <div class="note warn">
+
+        <b>Focus:</b>
+        ${w.focus}
+
+      </div>
+
+      <div class="round-panel">
+
+        <div>
+
+          <div class="round-big">
+            ${roundTitle(s)}
+          </div>
+
+          <div class="muted small">
+
+            ${completed}
+            van
+            ${exercises.length}
+            series klaar ·
+            ${s.completed}
+            volledige ronde${s.completed === 1 ? '' : 's'}
+            afgerond
+
+          </div>
+
+          <div class="round-hint">
+
+            ${allDone && timeLeft > 0
+              ? `Ronde klaar. Nog ${formatTime(timeLeft)} over — start daarna ronde ${s.round+1}.`
+              : timeLeft === 0
+                ? 'De tijd is voorbij. Rond je huidige oefening netjes af.'
+                : 'Werk alle oefeningen af om de volgende ronde te starten.'
+            }
+
+          </div>
+
+          <div class="progress">
+
+            <span
+              style="
+                width:
+                ${completed / exercises.length * 100}%
+              ">
+            </span>
+
+          </div>
+
+        </div>
+
+        <div>
+
+          <div
+            class="timer"
+            id="timerText">
+
+            ${formatTime(timeLeft)}
+
+          </div>
+
+          <div class="timer-actions">
+
+            <button
+              class="mini-btn primary"
+              id="timerStart">
+
+              ${running ? 'Pauze' : 'Start'}
+
+            </button>
+
+            <button
+              class="mini-btn"
+              id="timerReset">
+
+              Opnieuw
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    ${exercises.map(
+      (e,i)=>
+        exerciseCard(
+          e,
+          i,
+          s.done[i]
+        )
+    ).join('')}
+
+    <button
+      id="roundDone"
+      class="round-btn"
+      ${canStartNextRound ? '' : 'disabled'}>
+
+      ${allDone && timeLeft > 0
+        ? `Ronde klaar → start ronde ${s.round+1}`
+        : timeLeft === 0
+          ? 'Tijd voorbij'
+          : 'Maak eerst alle oefeningen af'
+      }
+
+    </button>
+
+    <button
+      id="resetProgress"
+      class="action"
+      style="width:100%;margin-top:10px">
+
+      Training opnieuw beginnen
+
+    </button>
+
+  `;
+
+  bindTraining(
+    exercises,
+    s,
+    w,
+    type
+  );
+
 }
 
+function exerciseCard(
+  [name,reps],
+  i,
+  done
+){
 
-function renderProgress(){
+  const base =
+    name.replace(
+      ' • optioneel',
+      ''
+    );
 
-const total=getWeekProgress(selectedWeek);
+  const [
+    hint,
+    motion,
+    equip
+  ] =
+    info[base] || [
+      'Beweeg rustig en gecontroleerd.',
+      'demoMove',
+      'Geen'
+    ];
 
-document.getElementById("progressWeekBadge").textContent="Week "+selectedWeek;
-document.getElementById("progressPercent").textContent=total.percent+"%";
-document.getElementById("progressTotalBar").style.width=total.percent+"%";
+  return `
 
-const holder=document.getElementById("progressDays");
-holder.innerHTML="";
+    <article class="card exercise">
 
-schedule.forEach(day=>{
+      <div
+        class="demo"
+        data-motion="${motion}">
 
-const workout=workouts[day];
-const p=getDayProgress(selectedWeek,day);
+        <div class="wall-logo">
+          VAN SILENUS NAAR ADONIS
+        </div>
 
-const div=document.createElement("div");
-div.className="progress-day";
+        <div class="adonis">
+          <span class="legs"></span>
+        </div>
 
-div.innerHTML=`
+      </div>
 
-<div class="progress-day-top">
-<span>${workout.icon} ${workout.day}</span>
-<span>${p.percent}%</span>
-</div>
+      <div class="exercise-body">
 
-<div class="progress-shell">
-<div class="progress-bar" style="width:${p.percent}%"></div>
-</div>
+        <div class="exercise-title">
 
-<div class="muted small" style="margin-top:7px">
-${p.done} van ${p.total} series
-</div>
-`;
+          <h3>
+            ${i+1}. ${name}
+          </h3>
 
-holder.appendChild(div);
+          <div class="reps">
+            ${reps}
+          </div>
 
-});
+        </div>
+
+        <div class="hint">
+
+          ${hint}
+
+          ${equip !== 'Geen'
+            ? `
+              <span class="equipment">
+                Benodigd: ${equip}
+              </span>
+            `
+            : ''
+          }
+
+        </div>
+
+        <button
+          class="series-btn
+          ${done ? 'done' : ''}"
+          data-series="${i}">
+
+          ${done
+            ? 'Gedaan ✓'
+            : 'Serie klaar'
+          }
+
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
 }
 
+function bindTraining(
+  exercises,
+  s,
+  w,
+  type
+){
 
-function resetSelectedWeek(){
+  document
+    .querySelectorAll('[data-series]')
+    .forEach(b => {
 
-if(!confirm(
-"Weet je zeker dat je alle voortgang van week "+
-selectedWeek+
-" wilt wissen?"
-))return;
+      b.onclick = () => {
 
-const keys=[];
+        const i =
+          +b.dataset.series;
 
-for(let i=0;i<localStorage.length;i++){
+        s.done[i] =
+          !s.done[i];
 
-const key=localStorage.key(i);
+        setState(
+          selectedWeek,
+          selectedDay,
+          type,
+          s
+        );
+
+        renderTraining();
+
+      };
+
+    });
+
+  document.querySelector('#roundDone').onclick = () => {
+
+    if(
+      !s.done.every(Boolean) ||
+      timeLeft <= 0
+    ){
+      return;
+    }
+
+    s.completed++;
+    s.round++;
+
+    s.done =
+      Array(exercises.length).fill(false);
+
+    setState(
+      selectedWeek,
+      selectedDay,
+      type,
+      s
+    );
+
+    renderTraining();
+
+    window.scrollTo({
+      top:
+        document.querySelector('#actualTraining').offsetTop - 8,
+      behavior:'smooth'
+    });
+
+  };
+
+  document.querySelector('#resetProgress').onclick = () => {
+
+    if(
+      confirm(
+        'Voortgang van deze training wissen?'
+      )
+    ){
+
+      setState(
+        selectedWeek,
+        selectedDay,
+        type,
+        {
+          round:1,
+          done:
+            Array(exercises.length).fill(false),
+          completed:0
+        }
+      );
+
+      clearInterval(timer);
+
+      running = false;
+
+      timeLeft =
+        w.mins * 60;
+
+      renderTraining();
+
+    }
+
+  };
+
+  document.querySelector('#timerStart').onclick =
+    toggleTimer;
+
+  document.querySelector('#timerReset').onclick = () => {
+
+    clearInterval(timer);
+
+    running = false;
+
+    timeLeft =
+      w.mins * 60;
+
+    renderTraining();
+
+  };
+
+}
+
+function toggleTimer(){
+
+  running =
+    !running;
+
+  const btn =
+    document.querySelector('#timerStart');
+
+  if(running){
+
+    btn.textContent =
+      'Pauze';
+
+    timer =
+      setInterval(()=>{
+
+        timeLeft--;
+
+        updateTimer();
+
+        if(timeLeft <= 0){
+
+          clearInterval(timer);
+
+          running = false;
+
+          timeLeft = 0;
+
+          updateTimer();
+
+          if(navigator.vibrate){
+
+            navigator.vibrate(
+              [250,100,250]
+            );
+
+          }
+
+          alert(
+            'Tijd! Rond je huidige oefening netjes af.'
+          );
+
+          renderTraining();
+
+        }
+
+      },1000);
+
+  }else{
+
+    clearInterval(timer);
+
+    if(btn){
+      btn.textContent = 'Start';
+    }
+
+  }
+
+}
+
+function updateTimer(){
+
+  const t =
+    document.querySelector('#timerText');
+
+  if(t){
+
+    t.textContent =
+      formatTime(timeLeft);
+
+  }
+
+  const b =
+    document.querySelector('#timerStart');
+
+  if(b){
+
+    b.textContent =
+      running
+        ? 'Pauze'
+        : 'Start';
+
+  }
+
+}
+
+function formatTime(s){
+
+  const safe =
+    Math.max(0,s);
+
+  return `${
+    String(
+      Math.floor(safe / 60)
+    ).padStart(2,'0')
+  }:${
+    String(
+      safe % 60
+    ).padStart(2,'0')
+  }`;
+
+}
+
+function renderWeeks(){
+
+  document.querySelector('#weeksMount').innerHTML =
+    weekData.map((w,i)=>`
+
+      <div class="card week-card">
+
+        <div class="week-num">
+          ${i+1}
+        </div>
+
+        <div>
+
+          <h3>
+            ${w.name}
+          </h3>
+
+          <div class="muted small">
+
+            ${w.mins} minuten ·
+            ma A · di B · do A · za B licht
+
+          </div>
+
+          <div class="muted small">
+
+            wo / vr / zo:
+            extra training A of B mogelijk
+
+          </div>
+
+          <div class="muted small">
+
+            ${fmtDate(dateForWeekDay(i,0))}
+            t/m
+            ${fmtDate(dateForWeekDay(i,6))}
+
+          </div>
+
+          <ul class="week-list">
+
+            <li>
+              ${w.focus}
+            </li>
+
+            ${i >= 4
+              ? `
+                <li>
+                  Bulgarian split squat:
+                  stoel of bank toegestaan.
+                </li>
+              `
+              : ''
+            }
+
+            ${i >= 6
+              ? `
+                <li>
+                  Rugzak 3-5 kg alleen optioneel bij benen.
+                  Zaterdag zonder extra gewicht.
+                </li>
+              `
+              : ''
+            }
+
+            <li>
+              Zondag:
+              langere/intensievere hardlooptraining.
+            </li>
+
+          </ul>
+
+          <button
+            class="mini-btn"
+            data-openweek="${i}">
+
+            Open week
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join('');
+
+  document
+    .querySelectorAll('[data-openweek]')
+    .forEach(b => {
+
+      b.onclick = () => {
+
+        selectedWeek =
+          +b.dataset.openweek;
+
+        resetTimerForSelection();
+
+        showScreen('today');
+
+        renderToday();
+
+        window.scrollTo({
+          top:0,
+          behavior:'smooth'
+        });
+
+      };
+
+    });
+
+}
+
+function renderLibrary(){
+
+  const names = [
+    ...new Set(
+      weekData
+        .flatMap(
+          w => [
+            ...w.A,
+            ...w.B
+          ]
+        )
+        .map(
+          x => x[0]
+        )
+    )
+  ];
+
+  document.querySelector('#libraryMount').innerHTML =
+    names.map(n => {
+
+      const [
+        hint,
+        motion,
+        equip
+      ] =
+        info[n] || [
+          'Beweeg rustig en gecontroleerd.',
+          'demoMove',
+          'Geen'
+        ];
+
+      return `
+
+        <div class="lib">
+
+          <b>${n}</b>
+
+          <span>
+            ${hint}
+          </span>
+
+          ${equip !== 'Geen'
+            ? `
+              <div class="equipment">
+                Benodigd: ${equip}
+              </div>
+            `
+            : ''
+          }
+
+        </div>
+
+      `;
+
+    }).join('');
+
+}
+
+function showScreen(id){
+
+  document
+    .querySelectorAll('.screen')
+    .forEach(s =>
+      s.classList.toggle(
+        'active',
+        s.id === id
+      )
+    );
+
+  document
+    .querySelectorAll('.nav button')
+    .forEach(b =>
+      b.classList.toggle(
+        'active',
+        b.dataset.screen === id
+      )
+    );
+
+}
+
+document
+  .querySelectorAll('.nav button')
+  .forEach(b => {
+
+    b.onclick = () =>
+      showScreen(
+        b.dataset.screen
+      );
+
+  });
+
+window.addEventListener(
+  'beforeinstallprompt',
+  e => {
+
+    e.preventDefault();
+
+    deferredPrompt = e;
+
+    document
+      .querySelector('#installBtn')
+      .style.display =
+        'inline-block';
+
+  }
+);
+
+document.querySelector('#installBtn').onclick =
+  async () => {
+
+    if(!deferredPrompt){
+
+      alert(
+        'Open deze app in Chrome en kies menu → App installeren.'
+      );
+
+      return;
+
+    }
+
+    deferredPrompt.prompt();
+
+    await deferredPrompt.userChoice;
+
+    deferredPrompt = null;
+
+  };
 
 if(
-key&&
-key.startsWith(
-STORAGE_PREFIX+
-"done_"+
-selectedWeek+
-"_"
-)
+  'serviceWorker' in navigator
 ){
-keys.push(key);
-}
-}
 
-keys.forEach(key=>localStorage.removeItem(key));
+  navigator.serviceWorker
+    .register('./sw.js')
+    .catch(()=>{});
 
-renderEverything();
 }
 
-
-function switchScreen(name){
-
-document.querySelectorAll(".screen").forEach(s=>{
-s.classList.remove("active");
-});
-
-document.getElementById("screen-"+name).classList.add("active");
-
-document.querySelectorAll(".nav-btn").forEach(b=>{
-b.classList.toggle("active",b.dataset.screen===name);
-});
-
-if(name==="training")renderWorkout();
-if(name==="progress")renderProgress();
-
-window.scrollTo({top:0,behavior:"smooth"});
-}
-
-
-function renderEverything(){
-renderWeekStrip();
-renderDayStrip();
-renderWorkout();
 renderToday();
-renderHomeProgress();
-renderProgress();
-}
-
-
-document.querySelectorAll(".nav-btn").forEach(btn=>{
-btn.onclick=()=>switchScreen(btn.dataset.screen);
-});
-
-
-document.querySelectorAll(".day-btn").forEach(btn=>{
-
-btn.onclick=()=>{
-
-selectedDay=Number(btn.dataset.day);
-
-renderDayStrip();
-renderWorkout();
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-};
-
-});
-
-
-document.getElementById("resetWeekBtn").onclick=
-resetSelectedWeek;
-
-
-renderEverything();
+renderWeeks();
+renderLibrary();
 
 </script>
 
